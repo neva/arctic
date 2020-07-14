@@ -1,0 +1,238 @@
+<settings-tile>
+
+    <div class="tile">
+        <div class="content">
+            <div class="text">
+                <div class="title">Title</div>
+                <div class="description">Description</div>
+            </div>
+        </div>
+        <div class="icon">
+            <img src="images/play.svg">
+        </div>
+        <!-- <div class="content">
+            <div class="text">
+                <div class="title">Title</div>
+            </div>
+            <div class="input">
+                <input type="text">
+            </div>
+            <standard-button text="Save"></standard-button>
+        </div>
+        <div class="icon" style="transform: rotate(90deg); opacity: 0.0;">
+            <img src="images/play.svg">
+        </div> -->
+    </div>
+
+</settings-tile>
+<style>
+
+    .component {
+        align-self: center;
+        margin-top: 18px;
+    }
+    .component:first-child {
+        margin-top: 0px;
+    }
+    .component .tile {
+        width: 486px;
+        height: 88px; 
+        /* height: 157px; */
+        cursor: pointer;
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border: 1px solid #ECECEC;
+        border-radius: 8px;
+    }
+    .component .tile .content {
+        padding-top: 16px;
+        margin-left: 20px;
+    }
+    .component .tile .content .input {
+        margin-top: 11px;
+    }
+    .component .tile .content .input input {
+        width: 384px;
+        height: 34px;
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.43);
+        outline: none;
+        border: 1px solid #ECECEC;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-left: 9px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button {
+        margin-top: 15px;
+        width: 50px;
+        height: 31px;
+        line-height: 31px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button span {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 31px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button .loader {
+        width: 10px;
+        height: 10px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button .symbol {
+        font-size: 20px;
+    }
+    /* .component .tile .content .save-button {
+        width: 103px;
+        height: 31px;
+        cursor: pointer;
+        margin-top: 15px;
+        background: #3498DB;
+        border-radius: 5px;
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    } */
+    .component .tile .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .component .tile .text .title {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 28px;
+    }
+    .component .tile .text .description {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.43);
+    }
+    .component .tile .icon {
+        height: 26px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 29px;
+        margin-top: 31px;
+    }
+
+</style>
+<script>
+
+    const tile = component.querySelector(".tile");
+    var content = component.querySelector(".tile .content");
+    var icon = component.querySelector(".tile .icon");
+
+    /* const saveButton = component.querySelector(".tile .content .STANDARD-BUTTON");
+    saveButton.addClickEvent(() => {
+        console.log("Click!");
+    }) */
+
+    var title = "";
+    var description = "";
+
+    var saveEvent = async (inputValue) => {}
+
+    /* component.querySelector(".tile .content .text .title").innerHTML = props.title;
+    component.querySelector(".tile .content .text .description").innerHTML = props.description; */
+
+    const openTile = async () => {
+        await transitionElement(tile, { height: "157px"}, 0.5)
+        const contentTransition = transitionElement(content, { opacity: "0.0"}, 0.5);
+        const iconTransition = transitionElement(icon, { opacity: "0.0"}, 0.5);
+        await Promise.all([contentTransition, iconTransition])
+
+        tile.innerHTML = `<div class="content" style="opacity: 0.0;">
+            <div class="text">
+                <div class="title">Title</div>
+            </div>
+            <div class="input">
+                <input type="text">
+            </div>
+            <standard-button text="Save"></standard-button>
+        </div>
+        <div class="icon" style="transform: rotate(90deg); opacity: 0.0;">
+            <img src="images/play.svg">
+        </div>`
+        tile.style.cursor = "auto"
+        await use("components/standard-button.html", this);
+        content = component.querySelector(".tile .content");
+        icon = component.querySelector(".tile .icon");
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+        component.querySelector(".tile .content .input input").value = description;
+        await Promise.all([transitionElement(content, { opacity: "1.0"}, 0.5), transitionElement(icon, { opacity: "1.0"}, 0.5)])
+        
+        addClickEvent(component.querySelector(".tile .icon"), () => {
+            console.log("Click closing tile. ..")
+            closeTile(title, description);       
+        })
+        const button = component.querySelector(".tile .content .STANDARD-BUTTON");
+        button.addClickEvent(() => {
+            saveEvent(component.querySelector(".tile .content .input input").value, button)
+        })
+        // document.querySelector(".tile .content .save-button").addEventListener("click", () => saveEvent(component.querySelector(".tile .content .input input").value))
+
+    }
+    const closeTile = async () => {
+
+        const contentTransition = transitionElement(content, { opacity: "0.0"}, 0.5);
+        const iconTransition = transitionElement(icon, { opacity: "0.0"}, 0.5);
+        await Promise.all([contentTransition, iconTransition])
+        await transitionElement(tile, { height: "88px"}, 0.5)
+
+        tile.innerHTML = `<div class="content" style="opacity: 0.0;">
+            <div class="text">
+                <div class="title">Title</div>
+                <div class="description">Description</div>
+            </div>
+        </div>
+        <div class="icon" style="opacity: 0.0;">
+            <img src="images/play.svg">
+        </div>`
+        tile.style.cursor = "pointer"
+        content = component.querySelector(".tile .content");
+        icon = component.querySelector(".tile .icon");
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+        component.querySelector(".tile .content .text .description").innerHTML = description;
+        await Promise.all([transitionElement(content, { opacity: "1.0"}, 0.5), transitionElement(icon, { opacity: "1.0"}, 0.5)])
+
+        addClickEvent(tile, () => {
+            console.log("Click closing tile. ..")
+            openTile(title, description);       
+        })
+
+    }
+
+    addClickEvent(tile, () => openTile())
+
+    const setSaveEvent = (event) => {
+        saveEvent = event;
+    }
+    const render = (titleText, descriptionText) => {
+        title = titleText;
+        description = descriptionText;
+        if(component.querySelector(".tile .content .text .description")) {
+            component.querySelector(".tile .content .text .description").innerHTML = description;
+        }
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+    }
+
+    return { setSaveEvent, render }
+
+</script>

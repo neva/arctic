@@ -1,0 +1,34 @@
+<token-tile>
+
+    <tile title="Token" description="..."></tile>
+
+</token-tile>
+<style>
+
+    .component .TILE .tile.tile {
+        cursor: auto;
+    }
+    .component .TILE .tile.tile .icon {
+        cursor: pointer;
+    }
+
+</style>
+<script>
+
+    component.querySelector("tile").setAttribute("description", props.token)
+    
+    // rendering components
+    await use("components/tile.html", this);
+
+    const tile = component.querySelector(".TILE");
+    tile.querySelector(".tile .icon img").src = "images/trash.svg"
+    tile.querySelector(".icon").addEventListener("click", async () => {
+        const result = await disableToken(window.app, props.token);
+        if(result.error != false) {
+            console.log("Error:", result.error);
+            return;
+        }
+        component.parentNode.removeChild(component);
+    })
+
+</script>

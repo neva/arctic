@@ -1,0 +1,36 @@
+<member-tile>
+
+    <tile title="..." description="..."></tile>
+
+</member-tile>
+<style>
+
+    .component .TILE .tile.tile {
+        cursor: auto;
+    }
+    .component .TILE .tile.tile .icon {
+        cursor: pointer;
+    }
+
+</style>
+<script>
+
+    component.querySelector("tile").setAttribute("title", props.name)
+    component.querySelector("tile").setAttribute("description", props.email)
+    
+    // rendering components
+    await use("components/tile.html", this);
+
+    const tile = component.querySelector(".TILE");
+    tile.querySelector(".tile .icon img").src = "images/trash.svg"
+    tile.querySelector(".icon").addEventListener("click", async () => {
+        const result = await removeMember(window.app.appID, props.user, window.userAccessToken);
+        console.log(result);
+        if(result.error != false) {
+            console.log("Error:", result.error);
+            return;
+        }
+        component.parentNode.removeChild(component);
+    })
+
+</script>

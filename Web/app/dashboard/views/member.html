@@ -1,0 +1,77 @@
+<view>
+
+    <return-box name="Dashboard" link="views/dashboard.html"></return-box>
+    <intro title="Member"></intro>
+    <div class="tile-container">
+    </div>
+    <field placeholder="Member ID"></field>
+    <standard-button text="Add Member"></standard-button>
+
+</view>
+<style>
+    .view {
+        width: 530px;
+        min-height: 612px;
+    }
+    .view .tile-container {
+        margin-top: 38px;
+        display: flex;
+        flex-direction: column;
+    }
+    .view .tile-container {
+        margin-top: 38px;
+        display: flex;
+        flex-direction: column;
+    }
+    .view .tile-container .MEMBER-TILE {
+        margin-top: 18px;
+        align-self: center;
+    }
+    .view .tile-container .MEMBER-TILE:first-child {
+        margin-top: 0px;
+    }
+    .view .STANDARD-BUTTON .button {
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 45px;
+        margin-bottom: 20px;
+        text-align: unset;
+    }
+    .view .FIELD .field {
+        margin-top: 30px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+<script>
+
+    // rendering components
+    await use("components/return-box.html", this);
+    await use("components/intro.html", this);
+    await use("components/standard-button.html", this);
+    await use("components/field.html", this);
+
+    const tileContainer = view.querySelector(".tile-container");
+
+    const memberList = await getMember(window.app.appID, window.userAccessToken);
+    memberList.forEach((member) => {
+        const memberTile = document.createElement("member-tile");
+        memberTile.setAttribute("name", member.name);
+        memberTile.setAttribute("email", member.email);
+        memberTile.setAttribute("user", member.id)
+        tileContainer.appendChild(memberTile);
+    })
+    await use("components/member-tile.html", this);
+
+    const button = view.querySelector(".STANDARD-BUTTON");
+    const field = view.querySelector(".FIELD");
+
+    button.addClickEvent(async () => {
+        const value = field.getValue();
+        const result = await addMember(window.app.appID, window.userAccessToken, value);
+        console.log(result);
+        await reload();
+        route("views/member.html");
+    })
+
+</script>

@@ -1,0 +1,3 @@
+# This file is intended for people who found a security concern or issue
+Contact: mailto:paul.hanneforth.o@gmail.com
+Preferred-Languages: en

@@ -1,0 +1,29 @@
+<view>
+
+    <intro title="Welcome" description="‏‏..."></intro>
+    <div class="tile-container">
+        <tile title="Preferences" description="Change Name, Icon, etc." link="views/preferences.html"></tile>
+        <tile title="Token" description="List all tokens" link="views/token.html"></tile>
+        <tile title="Member" description="List all member" link="views/member.html"></tile>
+    </div>
+
+</view>
+<style>
+    .view {
+        width: 530px;
+        height: 612px;
+    }
+    .tile-container {
+        margin-top: 38px;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<script>
+
+    document.querySelector("intro").setAttribute("description", window.app.appName)
+
+    await use("components/intro.html", this);
+    await use("components/tile.html", this);
+
+</script>

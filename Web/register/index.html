@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>Arctic Register</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="style.css">
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        <script src="../lib/arctic.js"></script>
+        <script src="script.js" defer></script>
+
+    </head>
+    <body>
+
+        <div id="content">
+            <div class="text-box invisible">
+                <span>...</span>
+            </div>
+            <div class="frame">
+                <div class="login-text">
+                    <span>Register</span>
+                </div>
+                <div class="name-field input-field">
+                    <input id="name" placeholder="Name" type="text" required autocomplete="name">
+                </div>
+                <div class="email-field input-field">
+                    <input id="email" placeholder="Email" type="email" required autocomplete="email">
+                </div>
+                <div class="password-field input-field">
+                    <input id="password" placeholder="Password" type="password">
+                </div>
+                <div class="footer">
+                    <div id="register-button">
+                        <span>Register</span>
+                    </div>
+                    <a href="/login" id="login-button">
+                        <span>Login Instead</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

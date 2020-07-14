@@ -1,0 +1,300 @@
+<settings-tile>
+
+    <div class="tile">
+        <div class="content">
+            <div class="text">
+                <div class="title">Title</div>
+                <div class="description">Description</div>
+            </div>
+        </div>
+        <div class="icon">
+            <img src="images/play.svg">
+        </div>
+    </div>
+
+</settings-tile>
+<style>
+
+    .component {
+        align-self: center;
+        margin-top: 18px;
+    }
+    .component:first-child {
+        margin-top: 0px;
+    }
+    .component .tile {
+        width: 486px;
+        height: 88px; 
+        /* height: 157px; */
+        cursor: pointer;
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border: 1px solid #ECECEC;
+        border-radius: 8px;
+    }
+    .component .tile .content {
+        padding-top: 16px;
+        margin-left: 20px;
+    }
+    .component .tile .content .input {
+        margin-top: 11px;
+    }
+    .component .tile .content .input input {
+        width: 384px;
+        height: 34px;
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.43);
+        outline: none;
+        border: 1px solid #ECECEC;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-left: 9px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button {
+        margin-top: 15px;
+        width: 50px;
+        height: 31px;
+        line-height: 31px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button span {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 31px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button .loader {
+        width: 10px;
+        height: 10px;
+    }
+    .component .tile .content .STANDARD-BUTTON .button .symbol {
+        font-size: 20px;
+    }
+    .component .tile .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .component .tile .text .title {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 28px;
+    }
+    .component .tile .text .description {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.43);
+    }
+    .component .tile .icon {
+        height: 26px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 29px;
+        margin-top: 31px;
+    }
+
+</style>
+<script>
+
+    const tile = component.querySelector(".tile");
+
+    var title = "";
+    var description = "";
+
+    var saveEvent = async (inputValue) => {}
+
+    const openTile = async () => {
+
+        // elements
+        const content = document.querySelector(".tile .content")
+        const icon = document.querySelector(".tile .icon")
+        // transitioning
+        await transitionElement(tile, { height: "157px"}, 0.5)
+        const contentTransition = transitionElement(content, { opacity: "0.0"}, 0.5);
+        const iconTransition = transitionElement(icon, { opacity: "0.0"}, 0.5);
+        await Promise.all([contentTransition, iconTransition])
+        // opening Tile 
+        tile.innerHTML = `<div class="content" style="opacity: 0.0;">
+            <div class="text">
+                <div class="title">Title</div>
+            </div>
+            <div class="input">
+                <input type="text">
+            </div>
+            <standard-button text="Save"></standard-button>
+        </div>
+        <div class="icon" style="transform: rotate(90deg); opacity: 0.0;">
+            <img src="images/play.svg">
+        </div>`
+        tile.style.cursor = "auto"
+        await use("components/standard-button.html", this);
+
+        // setting values
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+        component.querySelector(".tile .content .input input").value = description;
+        // transitioning
+        const updatedContent = component.querySelector(".tile .content");
+        const updatedIcon = component.querySelector(".tile .icon");
+        const t1 = transitionElement(updatedContent, { opacity: "1.0"}, 0.5);
+        const t2 = transitionElement(updatedIcon, { opacity: "1.0"}, 0.5);
+        await Promise.all([t1, t2])
+        // adding click events
+        addClickEvent(component.querySelector(".tile .icon"), () => closeTile(title, description))
+        component.querySelector(".tile .content .STANDARD-BUTTON").addClickEvent(() => saveEvent(component.querySelector(".tile .content .input input").value, button))
+
+    }
+    const closeTile = async () => {
+        // elements
+        const content = document.querySelector(".tile .content")
+        const icon = document.querySelector(".tile .icon")
+
+        const contentTransition = transitionElement(content, { opacity: "0.0"}, 0.5);
+        const iconTransition = transitionElement(icon, { opacity: "0.0"}, 0.5);
+        await Promise.all([contentTransition, iconTransition])
+        await transitionElement(tile, { height: "88px"}, 0.5)
+
+        tile.innerHTML = `<div class="content" style="opacity: 0.0;">
+            <div class="text">
+                <div class="title">Title</div>
+                <div class="description">Description</div>
+            </div>
+        </div>
+        <div class="icon" style="opacity: 0.0;">
+            <img src="images/play.svg">
+        </div>`
+        tile.style.cursor = "pointer"
+        const content2 = component.querySelector(".tile .content");
+        const icon2 = component.querySelector(".tile .icon");
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+        component.querySelector(".tile .content .text .description").innerHTML = description;
+        await Promise.all([transitionElement(content2, { opacity: "1.0"}, 0.5), transitionElement(icon2, { opacity: "1.0"}, 0.5)])
+
+        addClickEvent(tile, () => {
+            console.log("Click closing tile. ..")
+            openTile(title, description);       
+        })
+
+    }
+
+    addClickEvent(tile, () => openTile())
+
+    const setSaveEvent = (event) => {
+        saveEvent = event;
+    }
+    const render = (titleText, descriptionText) => {
+        title = titleText;
+        description = descriptionText;
+        if(component.querySelector(".tile .content .text .description")) {
+            component.querySelector(".tile .content .text .description").innerHTML = description;
+        }
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+    }
+
+    return { setSaveEvent, render }
+
+</script>
+<!-- <script>
+
+    const tile = component.querySelector(".tile");
+    var content = component.querySelector(".tile .content");
+    var icon = component.querySelector(".tile .icon");
+
+    var title = "";
+    var description = "";
+
+    var saveEvent = async (inputValue) => {}
+
+    const openTile = async () => {
+        await transitionElement(tile, { height: "157px"}, 0.5)
+        const contentTransition = transitionElement(content, { opacity: "0.0"}, 0.5);
+        const iconTransition = transitionElement(icon, { opacity: "0.0"}, 0.5);
+        await Promise.all([contentTransition, iconTransition])
+
+        tile.innerHTML = `<div class="content" style="opacity: 0.0;">
+            <div class="text">
+                <div class="title">Title</div>
+            </div>
+            <div class="input">
+                <input type="text">
+            </div>
+            <standard-button text="Save"></standard-button>
+        </div>
+        <div class="icon" style="transform: rotate(90deg); opacity: 0.0;">
+            <img src="images/play.svg">
+        </div>`
+        tile.style.cursor = "auto"
+        await use("components/standard-button.html", this);
+        content = component.querySelector(".tile .content");
+        icon = component.querySelector(".tile .icon");
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+        component.querySelector(".tile .content .input input").value = description;
+        await Promise.all([transitionElement(content, { opacity: "1.0"}, 0.5), transitionElement(icon, { opacity: "1.0"}, 0.5)])
+        
+        addClickEvent(component.querySelector(".tile .icon"), () => {
+            console.log("Click closing tile. ..")
+            closeTile(title, description);       
+        })
+        const button = component.querySelector(".tile .content .STANDARD-BUTTON");
+        button.addClickEvent(() => {
+            saveEvent(component.querySelector(".tile .content .input input").value, button)
+        })
+        // document.querySelector(".tile .content .save-button").addEventListener("click", () => saveEvent(component.querySelector(".tile .content .input input").value))
+
+    }
+    const closeTile = async () => {
+
+        const contentTransition = transitionElement(content, { opacity: "0.0"}, 0.5);
+        const iconTransition = transitionElement(icon, { opacity: "0.0"}, 0.5);
+        await Promise.all([contentTransition, iconTransition])
+        await transitionElement(tile, { height: "88px"}, 0.5)
+
+        tile.innerHTML = `<div class="content" style="opacity: 0.0;">
+            <div class="text">
+                <div class="title">Title</div>
+                <div class="description">Description</div>
+            </div>
+        </div>
+        <div class="icon" style="opacity: 0.0;">
+            <img src="images/play.svg">
+        </div>`
+        tile.style.cursor = "pointer"
+        content = component.querySelector(".tile .content");
+        icon = component.querySelector(".tile .icon");
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+        component.querySelector(".tile .content .text .description").innerHTML = description;
+        await Promise.all([transitionElement(content, { opacity: "1.0"}, 0.5), transitionElement(icon, { opacity: "1.0"}, 0.5)])
+
+        addClickEvent(tile, () => {
+            console.log("Click closing tile. ..")
+            openTile(title, description);       
+        })
+
+    }
+
+    addClickEvent(tile, () => openTile())
+
+    const setSaveEvent = (event) => {
+        saveEvent = event;
+    }
+    const render = (titleText, descriptionText) => {
+        title = titleText;
+        description = descriptionText;
+        if(component.querySelector(".tile .content .text .description")) {
+            component.querySelector(".tile .content .text .description").innerHTML = description;
+        }
+        component.querySelector(".tile .content .text .title").innerHTML = title;
+    }
+
+    return { setSaveEvent, render }
+
+</script> -->

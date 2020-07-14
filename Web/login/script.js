@@ -8,6 +8,12 @@ const action = queryParameter("action");
 const app = queryParameter("app");
 const redirectURL = queryParameter("redirect");
 
+const displayError = (text) => {
+    const textbox = document.querySelector(".text-box");
+    textbox.classList.remove("invisible");
+    textbox.querySelector("span").innerHTML = text;
+}
+
 if(action == "login-redirect") {
     displayError("You need to login first!")
 }

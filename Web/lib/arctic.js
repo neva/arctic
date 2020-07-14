@@ -52,8 +52,6 @@ const addUserToApp = async (userAccessToken, appID) => {
         "appID": appID
     })
 
-    if(jsonResult.error) throw "Error:", jsonResult.error.message
-
     return jsonResult;
 
 }

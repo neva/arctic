@@ -41,6 +41,5 @@ loginButton.addEventListener("click", async () => {
     } else {
         window.location.href = serverAddress + "/user";
     }
-    return;
 
 })

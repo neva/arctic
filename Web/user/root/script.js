@@ -8,8 +8,16 @@ const route = async (viewLink) => {
 }
 const reload = async () => {
 
-    const userAccessToken = getCookie("userAccessToken");
-    if(userAccessToken == null) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href);
+    const getUserAccessToken = () => {
+        if(queryParameter("userAccessToken")) {
+            return queryParameter("userAccessToken");
+        } else {
+            const userAccessToken = getCookie("userAccessToken");
+            if(userAccessToken == null) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href);
+            return userAccessToken;
+        }
+    }
+    const userAccessToken = getUserAccessToken();
 
     const user = await getUserInfo(userAccessToken);
     if(user.error != false) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href); 

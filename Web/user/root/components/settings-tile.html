@@ -150,7 +150,7 @@
         await Promise.all([t1, t2])
         // adding click events
         addClickEvent(component.querySelector(".tile .icon"), () => closeTile(title, description))
-        const button = component.querySelector(".tile .StANDARD-BUTTON");
+        const button = component.querySelector(".tile .STANDARD-BUTTON");
         component.querySelector(".tile .content .STANDARD-BUTTON").addClickEvent(() => saveEvent(component.querySelector(".tile .content .input input").value, button))
 
     }

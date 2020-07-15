@@ -38,6 +38,8 @@ loginButton.addEventListener("click", async () => {
         window.location.href = redirectURL + "?authToken=" + result.authToken
     } else if(action == "login-redirect") {
         window.location.href = redirectURL;
+    } else if(action == "extension-add-user") {
+        window.close();
     } else {
         window.location.href = serverAddress + "/user";
     }

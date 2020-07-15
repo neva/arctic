@@ -34,6 +34,17 @@ const request = async (address, request) => {
     return jsonResult;
 
 }
+const getUserAccessToken = () => {
+
+    // check if query parameter contains userAccessToken
+    if(queryParameter(userAccessToken)) return queryParameter("userAccessToken");
+
+    // check if cookies contain userAccessToken
+    const userAccessToken = getCookie("userAccessToken");
+    if(userAccessToken == null) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href);
+    return userAccessToken;
+
+}
 var redirect = (url) => window.location.href = url;
 
 // arctic specific functions

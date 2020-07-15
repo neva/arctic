@@ -37,7 +37,7 @@ const request = async (address, request) => {
 const getUserAccessToken = () => {
 
     // check if query parameter contains userAccessToken
-    if(queryParameter(userAccessToken)) return queryParameter("userAccessToken");
+    if(queryParameter("userAccessToken")) return queryParameter("userAccessToken");
 
     // check if cookies contain userAccessToken
     const userAccessToken = getCookie("userAccessToken");

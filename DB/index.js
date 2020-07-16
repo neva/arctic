@@ -4,8 +4,8 @@ const ip = "localhost";
 const port = 30000;
 const database = "arctic";
 
-const username = process.env.name;
-const password = process.env.pass;
+const username = process.env.NAME;
+const password = process.env.PASS;
 
 // connect to database
 mongoose.connect("mongodb://" + ip + ":" + port + "/" + database, {

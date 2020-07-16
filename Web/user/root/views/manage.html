@@ -29,44 +29,31 @@
     // rendering components
     await use("../components/return-box.html", this);
     await use("../components/intro.html", this);
-    await use("components/settings-tile.html", this);
+    await use("../components/settings-tile.html", this);
 
     const box = document.querySelector("#box");
 
     const nameTile = view.querySelectorAll(".SETTINGS-TILE")[0]
     const emailTile = view.querySelectorAll(".SETTINGS-TILE")[1]
 
-    nameTile.render("Name", window.user.name)
-    emailTile.render("Email", window.user.email)
-
-    nameTile.setSaveEvent(async (value, button) => {
-        const t1 = button.startLoading();
+    nameTile.render("Name", window.user.name, async (value) => {
         const result = await updateUser(window.user.userAccessToken, { name: value })
-        await Promise.all([t1])
-        console.log(result);
         if(result.error != false) {
-            button.resolveLoading(false)
+            // TODO
+            console.log("Error!");
             return;
         }
-        await button.resolveLoading(true);
         await reload();
-        await button.reset("110px");
-        nameTile.render("Name", window.user.name)
         route("views/dashboard.html");
     })
-    emailTile.setSaveEvent(async (value, button) => {
-
-        const t1 = button.startLoading();
+    emailTile.render("Email", window.user.email, async (value) => {
         const result = await updateUser(window.user.userAccessToken, { email: value })
-        await Promise.all([t1])
         if(result.error != false) {
-            button.resolveLoading(false)
+            // TODO
+            console.log("Error!");
             return;
         }
-        await button.resolveLoading(true);
         await reload();
-        await button.reset("110px");
-        emailTile.render("Email", window.user.email)
         route("views/dashboard.html");
     })
 

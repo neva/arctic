@@ -1,0 +1,194 @@
+<settings-tile>
+
+    <div class="tile">
+        <div class="content">
+            <div class="text">
+                <div class="title">...</div>
+                <div class="description">...</div>
+            </div>
+        </div>
+        <div class="icon">
+            <img src="images/play.svg">
+        </div>
+    </div>
+    <!-- <div class="tile">
+        <div class="content">
+            <div class="text">
+                <div class="title">Title</div>
+            </div>
+            <div class="input">
+                <input type="text">
+            </div>
+            <grey-button>Save</grey-button>
+        </div>
+        <div class="icon">
+            <img src="images/play.svg" style="transform: rotate(90deg);">
+        </div>
+    </div> -->
+
+</settings-tile>
+<style>
+
+    .component {
+        align-self: center;
+        margin-top: 18px;
+    }
+    .component:first-child {
+        margin-top: 0px;
+    }
+    .component .tile .content {
+        margin-left: 20px;
+    }
+    .component .tile {
+        width: 486px;
+        height: 88px;
+        /* height: 164px; */
+        cursor: pointer;
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border: 1px solid #ECECEC;
+        border-radius: 8px;
+    }
+    .component .tile .content .input {
+        margin-top: 11px;
+    }
+    .component .tile .content .input input {
+        width: 384px;
+        height: 34px;
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.43);
+        outline: none;
+        border: 1px solid #ECECEC;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-left: 9px;
+    }
+    .component .content .GREY-BUTTON {
+        margin-top: 16px;
+    }
+    .component .tile .content .text {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .component .tile .content .text .title {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 28px;
+    }
+    .component .tile .content .text .description {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.43);
+    }
+    .component .tile .icon {
+        margin-top: 31px;
+        margin-right: 29px;
+    }
+
+</style>
+<script>
+
+    const tile = component.querySelector(".tile");
+
+    const render = (titleText, descriptionText, saveEvent) => {
+
+        tile.querySelector(".content .text .title").innerHTML = titleText;
+        tile.querySelector(".content .text .description").innerHTML = descriptionText;
+
+        const removeContent = async () => {
+
+            const content = tile.querySelector(".content");
+            const icon = tile.querySelector(".icon");
+
+            await Promise.all([
+                transitionElement(content, { opacity: 0.0 }, 0.5),
+                transitionElement(icon, { opacity: 0.0 }, 0.5)
+            ])
+
+            tile.removeChild(content);
+            tile.removeChild(icon);
+
+        }
+        const addContent = async (contentHTML, rotation, inputText, saveEvent) => {
+            
+            const content = document.createElement("div");
+            const icon = document.createElement("div");
+
+            content.classList.add("content");
+            content.innerHTML = contentHTML
+            /* content.innerHTML = `<div class="text">
+                    <div class="title">Title</div>
+                    <div class="description">description</div>
+                </div>` */
+            if(inputText) content.querySelector(".input input").value = inputText
+            icon.classList.add("icon");
+            icon.innerHTML = `<img src="images/play.svg" style="transform: rotate(` + rotation + `);">`
+
+            content.style.opacity = "0.0";
+            icon.style.opacity = "0.0";
+
+            tile.appendChild(content);
+            tile.appendChild(icon);
+            await use("/components/grey-button.html", this);
+            if(saveEvent) content.querySelector(".GREY-BUTTON").addClickEvent(() => saveEvent(content.querySelector(".input input").value))
+
+            await Promise.all([
+                transitionElement(content, { opacity: 1.0 }, 0.5),
+                transitionElement(icon, { opacity: 1.0 }, 0.5)
+            ])
+
+        }
+        const enlargeTile = async () => transitionElement(tile, { height: "164px"}, 0.5)
+        const reduceTile = async () => transitionElement(tile, { height: "88px"}, 0.5)
+        const addCursor = () => {
+            tile.style.cursor = "pointer"
+        }
+        const removeCursor = () => {
+            tile.style.cursor = "auto"
+            tile.querySelector(".icon").style.cursor = "pointer";
+        }
+
+        const closeTile = async () => {
+            await removeContent();
+            await reduceTile();
+            await addContent(`<div class="text">
+                    <div class="title">` + titleText + `</div>
+                    <div class="description">` + descriptionText + `</div>
+                </div>`, "0deg")
+            await addCursor();
+            tile.querySelector(".icon").onclick = () => {}
+            tile.onclick = () => openTile();
+        }
+        const openTile = async () => {
+            await removeContent();
+            await enlargeTile();
+            await addContent(`
+            <div class="text">
+                    <div class="title">` + titleText + `</div>
+                </div>
+                <div class="input">
+                    <input type="text">
+                </div>
+            <grey-button>Save</grey-button>
+            `, "90deg", descriptionText, saveEvent)
+            await removeCursor();
+            tile.onclick = () => {}
+            tile.querySelector(".icon").onclick = () => closeTile()
+        }
+
+        tile.onclick = async () => openTile()
+
+    }
+    return { render }
+
+</script>

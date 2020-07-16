@@ -107,6 +107,7 @@ const getAppInfo = async (appID) => {
 
 }
 
+
 const updateUser = async (userAccessToken, query) => {
 
     const result = await request(serverAddress + "/user/update", {

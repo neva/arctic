@@ -1,24 +1,55 @@
 <intro>
 
-    <div class="title">
-        <span>...</span>
+    <div class="intro">
+        <div class="title"></div>
+        <div class="description"></div>
     </div>
 
 </intro>
 <style>
 
-    .component .title span {
-        font-size: 35px;
-        font-family: "Raleway", sans-serif;
+    .component .intro .title {
+        font-family: Raleway;
+        font-style: normal;
         font-weight: bold;
+        font-size: 35px;
+        color: #000;
+    }
+    .component .intro .description {
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 35px;
+        color: #787878;
     }
 
 </style>
 <script>
 
-    const title = component.querySelector(".title");
-    const span = title.querySelector("span");
+    const title = component.querySelector(".intro .title");
+    const description = component.querySelector(".intro .description");
 
-    span.innerHTML = props.innerHTML;
+    const render = async (titleText, descriptionText) => {
+        const intro = component.querySelector(".intro");
+        // await transitionElement(intro, { opacity: "0.0" }, 0.5);
+        if(titleText && descriptionText && titleText != title.innerHTML && descriptionText != description.innerHTML) {
+            await Promise.all([transitionElement(title, { opacity: "0.0"}, 0.5), transitionElement(description, { opacity: "0.0"}, 0.5)])
+        } else if(titleText && titleText != title.innerHTML) {
+            await transitionElement(title, { opacity: "0.0"}, 0.5)
+        } else if(descriptionText && descriptionText != description.innerHTML) {
+            await transitionElement(description, { opacity: "0.0"}, 0.5)
+        }
+        
+        // refresh properties
+        title.innerHTML = titleText ? titleText : title.innerHTML;
+        description.innerHTML = descriptionText ? descriptionText : description.innerHTML;
+
+        await Promise.all([transitionElement(title, { opacity: "1.0"}, 0.5), transitionElement(description, { opacity: "1.0"}, 0.5)])
+    }
+
+    title.innerHTML = props.title ? props.title : "";
+    description.innerHTML = props.description ? props.description : "";
+
+    return { render }
 
 </script>

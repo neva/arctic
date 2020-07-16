@@ -1,5 +1,6 @@
 const serverAddress = "http://134.122.80.171:3000"
 
+
 // standard functions
 const setCookie = (name, value, days) => {
     const date = new Date();

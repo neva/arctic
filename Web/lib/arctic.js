@@ -1,4 +1,4 @@
-const serverAddress = "http://localhost:3000"
+const serverAddress = "http://164.90.222.130"
 
 // standard functions
 const setCookie = (name, value, days) => {

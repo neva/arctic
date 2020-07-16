@@ -1,0 +1,91 @@
+<view>
+
+    <intro>Login</intro>
+    <div class="field-container">
+        <field placeholder="Email" type="email"></field>
+        <field placeholder="Password" type="password"></field>
+    </div>
+    <div class="footer">
+        <blue-button>Login</blue-button>
+        <a href="/register" class="link">
+            <span>Create Account</span>
+        </a>
+    </div>
+
+</view>
+<style>
+    .view {
+        width: 450px;
+        height: 360px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .view .FIELD:first-child {
+        margin-top: 0px;
+    }
+    .view .FIELD {
+        margin-top: 30px;
+    }
+    .view .footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .view .link {
+        font-size: 20px;
+        font-family: "Raleway", sans-serif;
+        font-weight: bold;
+        color: #308CF8;
+        display: flex;
+    }
+    .view .link span {
+        align-self: flex-end;
+    }
+</style>
+<script>
+    
+    await use("components/intro.html", this);
+    await use("components/field.html", this);
+    await use("components/blue-button.html", this);
+
+    const button = view.querySelector(".footer .BLUE-BUTTON");
+    const emailField = view.querySelectorAll(".FIELD")[0];
+    const passwordField = view.querySelectorAll(".FIELD")[1];
+
+    const action = queryParameter("action");
+    const app = queryParameter("app");
+    const redirectURL = queryParameter("redirect");
+
+    if(action == "login-redirect") console.log("You need to login first!");
+
+    button.addClickEvent(async () => {
+
+        const email = emailField.getValue();
+        const password = passwordField.getValue();
+
+        const tokenRequest = await requestToken(email, password);
+        if(tokenRequest.error != false) {
+            console.log("Error while getting token!")
+        }
+
+        // add User to Extension
+        arcticExtensionAddUser(tokenRequest.token);
+
+        // save userAccessToken
+        setCookie("userAccessToken", tokenRequest.token, 30);
+
+        if(action == "authenticate") {
+            const result = await addUserToApp(tokenRequest.token, app);
+            window.location.href = redirectURL + "?authToken=" + result.authToken
+        } else if(action == "login-redirect") {
+            window.location.href = redirectURL;
+        } else if(action == "extension-add-user") {
+            window.close();
+        } else {
+            window.location.href = serverAddress + "/user";
+        }
+
+    })
+
+</script>

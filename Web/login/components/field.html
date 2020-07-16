@@ -1,0 +1,46 @@
+<field>
+
+    <div class="input-field">
+        <input placeholder="..." type="text">
+    </div>
+
+</field>
+<style>
+
+    .component .input-field {
+        width: 266px;
+        height: 58px;
+    }
+    .component .input-field input {
+        width: 266px;
+        height: 52px;
+        text-decoration: none;
+        outline: none;
+        border: 2px solid #A6A6A6;
+        border-radius: 8px;
+        padding-left: 18px;
+        line-height: 57px;
+        font-size: 20px;
+        font-family: "Raleway", sans-serif;
+        font-weight: normal;
+    }
+    .component .input-field input::placeholder {
+        font-size: 20px;
+        font-family: "Raleway", sans-serif;
+        font-weight: normal;
+        color: #949494;
+    }
+
+</style>
+<script>
+
+    const input = component.querySelector(".input-field input");
+
+    input.placeholder = props.placeholder;
+    input.type = props.type;
+
+    const getValue = () => input.value;
+
+    return { getValue }
+
+</script>

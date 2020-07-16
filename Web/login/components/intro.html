@@ -1,0 +1,24 @@
+<intro>
+
+    <div class="title">
+        <span>...</span>
+    </div>
+
+</intro>
+<style>
+
+    .component .title span {
+        font-size: 35px;
+        font-family: "Raleway", sans-serif;
+        font-weight: bold;
+    }
+
+</style>
+<script>
+
+    const title = component.querySelector(".title");
+    const span = title.querySelector("span");
+
+    span.innerHTML = props.innerHTML;
+
+</script>

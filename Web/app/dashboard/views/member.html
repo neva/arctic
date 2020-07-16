@@ -5,7 +5,7 @@
     <div class="tile-container">
     </div>
     <field placeholder="Member ID"></field>
-    <standard-button text="Add Member"></standard-button>
+    <blue-button>Add Member</blue-button>
 
 </view>
 <style>
@@ -30,10 +30,10 @@
     .view .tile-container .MEMBER-TILE:first-child {
         margin-top: 0px;
     }
-    .view .STANDARD-BUTTON .button {
+    .view .BLUE-BUTTON .button {
         margin-top: 20px;
         margin-left: 20px;
-        width: 45px;
+        width: 150px;
         margin-bottom: 20px;
         text-align: unset;
     }
@@ -52,7 +52,7 @@
     // rendering components
     await use("../../components/return-box.html", this);
     await use("../../components/intro.html", this);
-    await use("components/standard-button.html", this);
+    await use("../../components/blue-button.html", this);
     await use("../../components/field.html", this);
 
     const tileContainer = view.querySelector(".tile-container");
@@ -67,13 +67,16 @@
     })
     await use("components/member-tile.html", this);
 
-    const button = view.querySelector(".STANDARD-BUTTON");
+    const button = view.querySelector(".BLUE-BUTTON");
     const field = view.querySelector(".FIELD");
 
     button.addClickEvent(async () => {
         const value = field.getValue();
         const result = await addMember(window.app.appID, window.userAccessToken, value);
-        console.log(result);
+        if(result.error != false) {
+            field.renderError(result.error.message);
+            return;
+        }
         await reload();
         route("views/member.html");
     })

@@ -4,7 +4,7 @@
     <intro title="Token"></intro>
     <div class="tile-container">
     </div>
-    <standard-button text="Create"></standard-button>
+    <blue-button>Create</blue-button>
 
 </view>
 <style>
@@ -24,7 +24,7 @@
     .view .tile-container .TOKEN-TILE:first-child {
         margin-top: 0px;
     }
-    .view .STANDARD-BUTTON .button {
+    .view .BLUE-BUTTON .button {
         margin-top: 20px;
         margin-left: 20px;
         width: 65px;
@@ -40,16 +40,11 @@
     // rendering components
     await use("../../components/return-box.html", this);
     await use("../../components/intro.html", this);
-    await use("components/standard-button.html", this);
+    await use("../../components/blue-button.html", this);
 
-    const button = view.querySelector(".STANDARD-BUTTON");
+    const button = view.querySelector(".BLUE-BUTTON");
     button.addClickEvent(async () => {
-        console.log("Click!");
-        const transition = button.startLoading();
         const token = await createToken(window.app);
-        await Promise.all([transition, token])
-        reload();
-        await button.resolveLoading(true);
         route("views/token.html");
     })
 

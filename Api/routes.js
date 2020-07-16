@@ -688,11 +688,13 @@ router.post("/user/info", async (req, res) => {
     res.json({
         "error": false,
         "message": "Successfully accessed Info of user!",
-        "userID": user.id,
-        "userEmail": user.email,
-        "userApps": apps,
-        "userName": user.name,
-        userAppsMember
+        "user": {
+            "id": user.id,
+            "email": user.email,
+            "name": user.name,
+            "apps": userApps,
+            "appsMember": userAppsMember
+        }
     })
 
 })

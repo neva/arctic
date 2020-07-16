@@ -27,30 +27,21 @@
     // rendering components
     await use("../../components/return-box.html", this);
     await use("../../components/intro.html", this);
-    await use("components/settings-tile.html", this);
+    await use("../../components/settings-tile.html", this);
 
     const nameTile = view.querySelectorAll(".SETTINGS-TILE")[0]
 
-    nameTile.render("Name", window.app.appName)
-    nameTile.setSaveEvent(async (value, button) => {
+    nameTile.render("Name", window.app.appName, async (value) => {
 
-        const transition = button.startLoading();
         const result = await updateApp(window.app, { name: value })
-        console.log(result);
-        
-        await Promise.all([transition, result])
 
         if(result.error != false) {
-            await button.resolveLoading(false);
+            console.log("Error:", result.error)
             return;
         }
 
-        const t1 = button.resolveLoading(true);
-        const t2 = reload();
-        await Promise.all([t1, t2])
+        await reload();
 
-        await button.reset("110px");
-        nameTile.render("Name", window.app.appName);
         route("views/dashboard.html");
 
     })

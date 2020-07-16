@@ -12,6 +12,7 @@ const getCookie = (name) => {
     if(match) return match[2];
     return null;
 }
+
 const queryParameter = (name) => {
     url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');

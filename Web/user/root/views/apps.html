@@ -35,7 +35,7 @@
         await use("components/tile.html", this);
     }
 
-    window.user.userAppsMember.forEach((app) => {
+    window.user.appsMember.forEach((app) => {
         renderTile(app.name, app.id, serverAddress + "/app/dashboard/?app=" + app.id)
     })
 

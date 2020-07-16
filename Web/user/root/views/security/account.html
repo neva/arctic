@@ -37,7 +37,7 @@
         if(password == "") { field.renderError("Please enter password!"); return; }
 
         const t1 = button.startLoading();
-        const result = await deleteUser(window.user.userEmail, password);
+        const result = await deleteUser(window.user.email, password);
         await Promise.all([t1]);
 
         if(result.error != false) {

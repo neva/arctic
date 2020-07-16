@@ -13,7 +13,7 @@ const reload = async () => {
     const user = await getUserInfo(userAccessToken);
     if(user.error != false) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href); 
 
-    window.user = user;
+    window.user = user.user;
     window.user.userAccessToken = userAccessToken;
 
 }

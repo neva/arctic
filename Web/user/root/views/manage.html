@@ -33,7 +33,7 @@
     const emailTile = view.querySelectorAll(".SETTINGS-TILE")[1]
 
     nameTile.render("Name", window.user.name)
-    emailTile.render("Email", window.user.userEmail)
+    emailTile.render("Email", window.user.email)
 
     nameTile.setSaveEvent(async (value, button) => {
         const t1 = button.startLoading();
@@ -62,7 +62,7 @@
         await button.resolveLoading(true);
         await reload();
         await button.reset("110px");
-        emailTile.render("Email", window.user.userEmail)
+        emailTile.render("Email", window.user.email)
         route("views/dashboard.html");
     })
 

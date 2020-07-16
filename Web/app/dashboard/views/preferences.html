@@ -17,12 +17,16 @@
         display: flex;
         flex-direction: column;
     }
+    .view .INTRO {
+        margin-top: 28px;
+        margin-left: 36px;
+    }
 </style>
 <script>
 
     // rendering components
     await use("components/return-box.html", this);
-    await use("components/intro.html", this);
+    await use("../../components/intro.html", this);
     await use("components/settings-tile.html", this);
 
     const nameTile = view.querySelectorAll(".SETTINGS-TILE")[0]

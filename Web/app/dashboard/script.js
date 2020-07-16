@@ -95,7 +95,7 @@ const run = async () => {
 
     await reload();
 
-    route("views/member.html");
+    route("views/dashboard.html");
 
 }
 run();

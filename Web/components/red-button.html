@@ -1,0 +1,42 @@
+<red-button>
+
+    <div class="button">
+        <span>...</span>
+    </div>
+
+</red-button>
+<style>
+
+    .component .button {
+        background-color: black;
+        padding: 18px 32px;
+        /* width: 123px;
+        height: 62px; */
+        cursor: pointer;
+        background-color: #E74C3C;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    .component .button span {
+        color: #fff;
+        font-family: "Raleway", sans-serif;
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+</style>
+<script>
+    
+    const button = component.querySelector(".button");
+    const text = component.querySelector(".button span");
+    
+    text.innerHTML = props.innerHTML;
+
+    const addClickEvent = (event) => button.addEventListener("click", event);
+    
+    return { addClickEvent } 
+
+</script>

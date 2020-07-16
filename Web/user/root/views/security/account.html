@@ -3,7 +3,7 @@
     <return-box name="Security" link="views/security/index.html"></return-box>
     <intro title="Account"></intro>
     <field placeholder="Password"></field>
-    <standard-button text="Delete Account" primary="#E74C3C" secondary="#a93d32"></standard-button>
+    <red-button primary="#E74C3C" secondary="#a93d32">Delete Account</red-button>
 
 </view>
 <style>
@@ -15,7 +15,8 @@
         margin-top: 38px;
         margin-left: 36px;
     }
-    .view .STANDARD-BUTTON {
+    .view .RED-BUTTON {
+        width: 240px;
         margin-top: 307px;
         margin-left: 36px;
     }
@@ -30,9 +31,9 @@
     await use("../components/intro.html", this);
     await use("../components/return-box.html", this);
     await use("../components/field.html", this);
-    await use("components/standard-button.html", this);
+    await use("../components/red-button.html", this);
 
-    const button = view.querySelector(".STANDARD-BUTTON");
+    const button = view.querySelector(".RED-BUTTON");
     const field = view.querySelector(".FIELD");
 
     button.addClickEvent(async () => {
@@ -40,21 +41,14 @@
         const password = field.getValue();
         if(password == "") { field.renderError("Please enter password!"); return; }
 
-        const t1 = button.startLoading();
         const result = await deleteUser(window.user.email, password);
-        await Promise.all([t1]);
 
         if(result.error != false) {
-            button.resolveLoading(false);
-            setTimeout(() => {
-                button.reset();
-            }, 1000)
             if(result.error.code == 6) {
                 field.renderError("False password!");
             }
             return;
         }
-        await button.resolveLoading(true);
         setTimeout(async () => {
             redirect(serverAddress + "/login");
         }, 300)

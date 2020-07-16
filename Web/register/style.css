@@ -3,118 +3,20 @@ html, body {
     height: 100%;
     margin: 0;
 }
-
-.text-box {
-    display: flex;
-    padding-left: 20px;
-    padding-right: 20px;
-    height: 37px;
-    background-color: #FA5959;
-    border-radius: 5px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    justify-content: center;
-    position: absolute;
-    top: 178px;
-    left: 374px;
-}
-.text-box span {
-    line-height: 37px;
-    font-family: "Raleway";
-    font-weight: bold;
-    font-size: 17px;
-    color: #fff;
-}
-.invisible {
-    display: none;
-}
-
 #content {
     width: 100%;
     height: 100%;
-    background-color: #eee;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #eee;
 }
-.frame {
+#box {
     width: 450px;
-    height: 440px;
+    height: 407px;
+    padding: 30px 40px;
     background-color: white;
     border-radius: 10px;
-    padding: 30px 40px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-/* Login Text */
-.frame .login-text {
-    font-size: 35px;
-    font-family: "Raleway", sans-serif;
-    font-weight: bold;
-}
-
-/* Input Fields */
-.frame .input-field {
-    width: 265px;
-    height: 52px;
-}
-.frame .name-field {
-    margin-top: 50px;
-}
-.frame .email-field {
-    margin-top: 30px;
-}
-.frame .password-field {
-    margin-top: 30px;
-}
-.frame .input-field input {
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    outline: none;
-    border: 2px solid #A6A6A6;
-    border-radius: 8px;
-    padding-left: 20px;
-    line-height: 57px;
-    font-size: 20px;
-    font-family: "Raleway", sans-serif;
-    font-weight: normal;
-}
-.frame .input-field input::placeholder {
-    font-size: 20px;
-    font-family: "Raleway", sans-serif;
-    font-weight: normal;
-    color: #949494;
-}
-
-/* Buttons */
-.frame .footer {
-    margin-top: 65px;
-    display: flex;
-    justify-content: space-between;
-}
-.frame .footer #login-button {
-    font-size: 20px;
-    font-family: "Raleway", sans-serif;
-    font-weight: bold;
-    color: #308CF8;
-    display: flex;
-}
-.frame .footer #login-button span {
-    align-self: flex-end;
-}
-.frame .footer #register-button {
-    width: 128px;
-    height: 60px;
-    background-color: #308CF8;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.frame .footer #register-button span {
-    font-family: "Raleway", sans-serif;
-    font-weight: bold;
-    font-size: 20px;
-    color: #fff;
 }

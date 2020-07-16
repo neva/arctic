@@ -1,8 +1,8 @@
-<token-tile>
+<member-tile>
 
-    <tile title="Token" description="..."></tile>
+    <tile title="..." description="..."></tile>
 
-</token-tile>
+</member-tile>
 <style>
 
     .component .TILE .tile.tile {
@@ -15,15 +15,17 @@
 </style>
 <script>
 
-    component.querySelector("tile").setAttribute("description", props.token)
+    component.querySelector("tile").setAttribute("title", props.name)
+    component.querySelector("tile").setAttribute("description", props.email)
     
     // rendering components
-    await use("../../components/tile.html", this);
+    await use("/components/tile.html", this);
 
     const tile = component.querySelector(".TILE");
     tile.querySelector(".tile .icon img").src = "images/trash.svg"
     tile.querySelector(".icon").addEventListener("click", async () => {
-        const result = await disableToken(window.app, props.token);
+        const result = await removeMember(window.app.appID, props.user, window.userAccessToken);
+        console.log(result);
         if(result.error != false) {
             console.log("Error:", result.error);
             return;

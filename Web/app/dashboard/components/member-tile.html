@@ -19,7 +19,7 @@
     component.querySelector("tile").setAttribute("description", props.email)
     
     // rendering components
-    await use("components/tile.html", this);
+    await use("../../components/tile.html", this);
 
     const tile = component.querySelector(".TILE");
     tile.querySelector(".tile .icon img").src = "images/trash.svg"

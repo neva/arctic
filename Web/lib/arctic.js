@@ -1,4 +1,4 @@
-const serverAddress = "http://134.122.80.171:3000"
+const serverAddress = "http://46.101.113.205:3000"
 
 
 // standard functions

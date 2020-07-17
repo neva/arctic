@@ -44,6 +44,8 @@
     }
 </style>
 <script>
+
+    view.querySelector(".footer a").href = "/register" + window.location.search;
     
     await use("../components/intro.html", this);
     await use("../components/field.html", this);

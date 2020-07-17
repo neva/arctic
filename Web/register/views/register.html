@@ -46,6 +46,8 @@
 </style>
 <script>
 
+    view.querySelector(".footer a").href = "/login" + window.location.search;
+
     await use("../components/intro.html", this);
     await use("../components/field.html", this);
     await use("../components/blue-button.html", this);

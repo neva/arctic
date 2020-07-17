@@ -1,6 +1,3 @@
-const serverAddress = "http://46.101.113.205:3000"
-
-
 // standard functions
 const setCookie = (name, value, days) => {
     const date = new Date();

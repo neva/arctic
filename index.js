@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use("/", apiRoutes);
 app.use("/", webRoutes);
 
+
 app.use("/.well-known", express.static(__dirname + "/.well-known"))
 
 app.listen(port, () => console.log("Server started on port " + port + "!"));

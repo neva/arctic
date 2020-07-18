@@ -75,7 +75,7 @@
             name
         })
         if(jsonResult.error != false) {
-            console.log("Error while getting Token!");
+            window.popup.renderError(jsonResult.error.message, "#" + jsonResult.error.code);
             return;
         }
 

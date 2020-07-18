@@ -68,7 +68,7 @@
 
         const tokenRequest = await requestToken(email, password);
         if(tokenRequest.error != false) {
-            console.log("Error while getting token!");
+            window.popup.renderError(tokenRequest.error.message, "#" + tokenRequest.error.code);
             return;
         }
 

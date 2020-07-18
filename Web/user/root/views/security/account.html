@@ -50,9 +50,10 @@
             }
             return;
         }
+        window.popup.renderSuccess(result.message);
         setTimeout(async () => {
             redirect(serverAddress + "/login");
-        }, 300)
+        }, 800)
 
     })
 

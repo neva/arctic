@@ -43,6 +43,7 @@
             return;
         }
         await reload();
+        window.popup.renderSuccess(result.message);
         route("views/dashboard.html");
     })
     emailTile.render("Email", window.user.email, async (value) => {
@@ -52,6 +53,7 @@
             return;
         }
         await reload();
+        window.popup.renderSuccess(result.message);
         route("views/dashboard.html");
     })
 

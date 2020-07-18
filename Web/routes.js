@@ -2,6 +2,7 @@ const router = require("express").Router()
 const express = require("express")
 
 router.use("/components", express.static(__dirname + "/components"));
+router.use("/img", express.static(__dirname + "/img"));
 
 router.use("/login", express.static(__dirname + "/login"))
 router.use("/auth", express.static(__dirname + "/auth"))

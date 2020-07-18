@@ -83,7 +83,7 @@
         arcticExtensionAddUser(jsonResult.token);
 
         // save userAccessToken
-        setCookie("userAccessToken", jsonResult.token, 30);
+        cookieAddUserAccessToken(jsonResult.id, jsonResult.token);
 
         if(action == "authenticate") {
             const result = await addUserToApp(jsonResult.token, app);

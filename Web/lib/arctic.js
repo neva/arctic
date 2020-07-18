@@ -32,15 +32,59 @@ const request = async (address, request) => {
     return jsonResult;
 
 }
+const cookieGetUserList = () => {
+
+    const rawList = getCookie("userList");
+    const list = rawList ? rawList.split("$sep$").map((json) => JSON.parse(json)) : []
+    return list;
+
+}
+const cookieSetUserList = (userList) => {
+
+    const rawList = userList.map((json) => JSON.stringify(json)).join("$sep$");
+    setCookie("userList", rawList, 30);
+
+}
+const cookieAddUserAccessToken = (userID, token) => {
+
+    const list = cookieGetUserList();
+
+    const containsUser = list.reduce((acc, user) => {
+        if(acc) return true;
+        if(user.id == userID) return true;
+        return false;
+    }, false)
+
+    const updatedList = list.filter((user) => {
+        if(user.id == userID) return false;
+        return true;
+    })
+    console.log(updatedList);
+    updatedList.unshift({ id: userID, userAccessToken: token })
+    console.log(updatedList);
+
+    cookieSetUserList(updatedList);
+
+    /* if(containsUser) {
+        const updatedList = list.map((user) => {
+            if(user.id == userID) return { id: userID, userAccessToken: token }
+            return user;
+        })
+        cookieSetUserList(updatedList);
+    } else {
+        const updatedList = list.concat({ id: userID, userAccessToken: token })
+        cookieSetUserList(updatedList);
+    } */
+
+}
 const getUserAccessToken = () => {
 
     // check if query parameter contains userAccessToken
     if(queryParameter("userAccessToken")) return queryParameter("userAccessToken");
 
-    // check if cookies contain userAccessToken
-    const userAccessToken = getCookie("userAccessToken");
-    if(userAccessToken == null) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href);
-    return userAccessToken;
+    const list = cookieGetUserList();
+    if(list.length == 0) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href);
+    return list[0].userAccessToken
 
 }
 var redirect = (url) => window.location.href = url;

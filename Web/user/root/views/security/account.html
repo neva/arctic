@@ -44,6 +44,7 @@
         const result = await deleteUser(window.user.email, password);
 
         if(result.error != false) {
+            window.popup.renderError(result.error.message, "#" + result.error.code)
             if(result.error.code == 6) {
                 field.renderError("False password!");
             }

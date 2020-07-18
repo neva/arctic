@@ -39,8 +39,7 @@
     nameTile.render("Name", window.user.name, async (value) => {
         const result = await updateUser(window.user.userAccessToken, { name: value })
         if(result.error != false) {
-            // TODO
-            console.log("Error!");
+            window.popup.renderError(result.error.message, "#" + result.error.code)
             return;
         }
         await reload();
@@ -49,8 +48,7 @@
     emailTile.render("Email", window.user.email, async (value) => {
         const result = await updateUser(window.user.userAccessToken, { email: value })
         if(result.error != false) {
-            // TODO
-            console.log("Error!");
+            window.popup.renderError(result.error.message, "#" + result.error.code)
             return;
         }
         await reload();

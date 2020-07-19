@@ -1,0 +1,13 @@
+<view>
+
+    <h1>Test</h1>
+
+</view>
+<script>
+
+    const verificationCode = queryParameter("code");
+    
+    const result = await verifyAccount(verificationCode);
+    console.log(result);
+
+</script>

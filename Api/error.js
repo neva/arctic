@@ -11,7 +11,9 @@ const errorCode = {
     "10": "User is already a member of the app!",
     "11": "User has already been removed from the app!",
     "12": "User hasn't allowed app to access their information!",
-    "13": "You're not allowed to update this property!"
+    "13": "You're not allowed to update this property!",
+    "14": "Failed to match verification Code with user!",
+    "15": "You need to verify your account first!"
 }
 const errorTemplate = (code) => {
     return {
@@ -33,7 +35,9 @@ const errorMessage = {
     "userAlreadyMember": errorTemplate(10),
     "userAlreadyRemoved": errorTemplate(11),
     "userPermittedAccessFromApp": errorTemplate(12),
-    "notAllowedProperty": errorTemplate(13)
+    "notAllowedProperty": errorTemplate(13),
+    "verificationCodeNotValid": errorTemplate(14),
+    "accountNotVerified": errorTemplate(15)
 }
 
 module.exports = {

@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { User, App, Link } = require("../DB/index.js");
 const { errorMessage } = require("./error.js");
 const { sendVerificationMail } = require("./mailer.js");
+const { serverAddress } = require("./config.js")
 
 const generateID = async () => {
 
@@ -478,7 +479,6 @@ router.post("/user/verify", async (req, res) => {
 
     // get link with that verifyURL
     const link = await getLink({ verifyURL })
-    console.log(link, verifyURL)
     if (link == null) { res.json(errorMessage.verificationCodeNotValid); return; }
 
     // convert link to user
@@ -534,7 +534,7 @@ router.post("/user/create", async (req, res) => {
     })
     await link.save();
 
-    sendVerificationMail(email, "localhost:3000/user/verify?code=" + verifyURL);
+    sendVerificationMail(email, serverAddress + "/verify?code=" + verifyURL);
 
     // send response
     res.json({

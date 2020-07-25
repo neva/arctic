@@ -41,4 +41,12 @@ const AppSchema = {
 };
 const App = mongoose.model("App", AppSchema);
 
-module.exports = { User, App }
+const LinkSchema = {
+    verifyURL: String,
+    name: String,
+    email: String,
+    password: String
+}
+const Link = mongoose.model("Link", LinkSchema);
+
+module.exports = { User, App, Link }

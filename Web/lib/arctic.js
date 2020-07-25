@@ -65,17 +65,6 @@ const cookieAddUserAccessToken = (userID, token) => {
 
     cookieSetUserList(updatedList);
 
-    /* if(containsUser) {
-        const updatedList = list.map((user) => {
-            if(user.id == userID) return { id: userID, userAccessToken: token }
-            return user;
-        })
-        cookieSetUserList(updatedList);
-    } else {
-        const updatedList = list.concat({ id: userID, userAccessToken: token })
-        cookieSetUserList(updatedList);
-    } */
-
 }
 const getUserAccessToken = () => {
 
@@ -146,6 +135,14 @@ const getAppInfo = async (appID) => {
     });
 
     return jsonResponse;
+
+}
+const verifyAccount = async (verificationCode) => {
+
+    const result = await request(serverAddress + "/user/verify", {
+        verificationCode
+    })
+    return result;
 
 }
 

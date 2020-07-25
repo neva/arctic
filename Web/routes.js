@@ -7,6 +7,7 @@ router.use("/img", express.static(__dirname + "/img"));
 router.use("/login", express.static(__dirname + "/login"))
 router.use("/auth", express.static(__dirname + "/auth"))
 router.use("/register", express.static(__dirname + "/register"))
+router.use("/verify", express.static(__dirname + "/verify"))
 
 router.use("/app", express.static(__dirname + "/app/root"))
 router.use("/app/create", express.static(__dirname + "/app/create"))

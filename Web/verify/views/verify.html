@@ -1,0 +1,16 @@
+<view></view>
+<script>
+
+    const verificationCode = queryParameter("code");
+    
+    const result = await verifyAccount(verificationCode);
+    if(result.error != false) {
+        window.popup.renderError(result.error.message, "#" + result.error.code)
+        return;
+    }
+    window.popup.renderSuccess(result.message);
+    setTimeout(() => {
+        window.location.href = serverAddress + "/login"
+    }, 1000)
+
+</script>

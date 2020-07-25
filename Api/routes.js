@@ -1,6 +1,8 @@
 const router = require("express").Router();
-const { User, App } = require("../DB/index.js");
+const { User, App, Link } = require("../DB/index.js");
 const { errorMessage } = require("./error.js");
+const { sendVerificationMail } = require("./mailer.js");
+const { serverAddress } = require("./config.js")
 
 const generateID = async () => {
 
@@ -32,6 +34,16 @@ const generateToken = async () => {
     return token;
 
 }
+const generateURL = async () => {
+    // TODO
+    const verifyURl = [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join('');
+    const linkMatches = await Link.find({ verifyURl })
+    if(linkMatches.length > 0) {
+        const newLink = await generateURL();
+        return newLink;
+    }
+    return verifyURl;
+}
 const getUser = async (query) => {
 
     const matches = await User.find(query);
@@ -56,6 +68,17 @@ const getApp = async (query) => {
         } else {
             return null;
         }
+    }
+
+}
+const getLink = async (query) => {
+
+    const matches = await Link.find(query);
+
+    if (matches.length == 1) {
+        return matches[0];
+    } else {
+        return null;
     }
 
 }
@@ -106,6 +129,11 @@ const isAddedToApp = async (user, app) => {
 const deleteUser = async (user) => {
 
     await User.deleteOne({ "id": user.id })
+
+}
+const deleteLink = async (query) => {
+
+    await Link.deleteOne(query);
 
 }
 
@@ -441,6 +469,43 @@ router.post("/app/update", async (req, res) => {
 
 })
 
+router.post("/user/verify", async (req, res) => {
+
+    const verifyURL = req.body.verificationCode;
+
+    // check if request is complete
+    const formComplete = isComplete({ verifyURL });
+    if (!formComplete) { res.json(errorMessage.incompleteForm); return; }
+
+    // get link with that verifyURL
+    const link = await getLink({ verifyURL })
+    if (link == null) { res.json(errorMessage.verificationCodeNotValid); return; }
+
+    // convert link to user
+    const token = await generateToken();
+    const id = await generateID();
+    const user = new User({
+        apps: [],
+        id,
+        token,
+        email: link.email,
+        password: link.password,
+        name: link.name
+    })
+    await user.save();
+
+    // remove link
+    await deleteLink({ verifyURL })
+
+    // send response
+    res.json({
+        "error": false,
+        "message": "User was created successfully!",
+        "token": token,
+        "id": id
+    })
+
+})
 router.post("/user/create", async (req, res) => {
 
     const email = req.body.email;
@@ -455,25 +520,26 @@ router.post("/user/create", async (req, res) => {
     const result = await getUser({ email })
     if (result != null) { res.json(errorMessage.emailAlreadyUsed); return; }
 
-    // create user
-    const token = await generateToken();
-    const id = await generateID();
-    const user = new User({
-        apps: [],
-        id,
-        token,
+    // check if link already exists
+    const result2 = await getLink({ email })
+    if (result2 != null) { res.json(errorMessage.emailAlreadyUsed); return; }
+
+    // create Link
+    const verifyURL = await generateURL();
+    const link = new Link({
+        name,
         email,
         password,
-        name
+        verifyURL
     })
-    await user.save();
+    await link.save();
+
+    sendVerificationMail(email, serverAddress + "/verify?code=" + verifyURL);
 
     // send response
     res.json({
         "error": false,
-        "message": "User was created successfully!",
-        "token": token,
-        "id": id
+        "message": "Please verify your account!"
     })
 
 })
@@ -510,6 +576,10 @@ router.post("/user/token", async (req, res) => {
     // check if request is complete
     const formComplete = isComplete({ email, password });
     if (!formComplete) { res.json(errorMessage.incompleteForm); return; }
+
+    // check if a link for that user exists
+    const link = await getLink({ email })
+    if (link != null) { res.json(errorMessage.accountNotVerified); return; }
 
     // check if user exists
     const user = await getUser({ email })

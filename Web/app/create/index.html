@@ -4,32 +4,26 @@
     <head>
 
         <title>Arctic</title>
+
+        <!-- Styles -->
         <link rel="stylesheet" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="/lib/config.js"></script>
         <script src="/lib/arctic.js"></script>
+        <script src="/lib/extension.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/viewkit@latest/index.js"></script>
         <script src="script.js" defer></script>
 
     </head>
     <body>
-        
-        <div class="content">
-            <div class="text">
-                <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="11.334" y="14.8293" width="3.85417" height="37" transform="rotate(-45 11.334 14.8293)" fill="#969696"/>
-                    <rect x="14.5537" y="40.7172" width="3.85417" height="37" transform="rotate(-135 14.5537 40.7172)" fill="#969696"/>
-                </svg>                
-                <span>Create an App</span>
-            </div>
-            <div class="box">
-                <div class="name-field input-field">
-                    <input id="name-field" placeholder="App Name" type="text">
-                </div>
-                <div id="create-app-btn">
-                    <span>Create App</span>
-                </div>
+
+        <div id="content">
+            <popup></popup>
+            <div id="box">
             </div>
         </div>
 

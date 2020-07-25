@@ -1,7 +1,6 @@
 const reload = async () => {
 
-    const userAccessToken = getCookie("userAccessToken");
-    if(userAccessToken == null) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href);
+    const userAccessToken = getUserAccessToken();
 
     const appID = queryParameter("app");
     // TODO / Redirect to 404 page

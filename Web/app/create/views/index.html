@@ -1,0 +1,44 @@
+<view>
+
+    <field placeholder="Name" type="Name"></field>
+    <blue-button>Create App</blue-button>
+
+</view>
+<style>
+
+    .view {
+        height: 175px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .view .BLUE-BUTTON {
+        width: 200px;
+    }    
+
+</style>
+<script>
+
+    await use("/components/field.html", this);
+    await use("/components/blue-button.html", this);
+
+    const button = view.querySelector(".BLUE-BUTTON");
+    const field = view.querySelector(".FIELD");
+
+    button.addClickEvent(async () => {
+
+        const appName = field.getValue();
+        const response = await createApp(appName, window.user.userAccessToken);
+        
+        if(response.error != false) {
+            window.popup.renderError(response.error.message, "#" + response.error.code)
+        }
+        window.popup.renderSuccess(response.message);
+        console.log(response);
+        setTimeout(() => {
+            window.location.href = serverAddress + "/app/dashboard?app=" + response.id;
+        }, 1000)
+
+    })
+
+</script>

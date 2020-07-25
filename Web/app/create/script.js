@@ -1,12 +1,27 @@
-const button = document.getElementById("create-app-btn");
-const nameField = document.getElementById("name-field");
+const reload = async () => {
 
-button.addEventListener("click", async () => {
+    const userAccessToken = getUserAccessToken();
 
-    const userAccessToken = getCookie("userAccessToken");
-    if(userAccessToken == null) redirect(serverAddress + "/login?redirect=" + window.location.href);
+    const user = await getUserInfo(userAccessToken);
+    if(user.error != false) redirect(serverAddress + "/login?action=login-redirect&redirect=" + window.location.href); 
 
-    const app = await createApp(nameField.value, userAccessToken);
-    redirect(serverAddress + "/app/dashboard?app=" + app.id);
+    window.user = user.user;
+    window.user.userAccessToken = userAccessToken;
 
-})
+}
+const run = async () => {
+    
+    await reload();
+
+    await use("/components/popup.html", this);
+    const popup = document.querySelector(".POPUP");
+    window.popup = popup;
+
+    const box = document.getElementById("box");
+    const viewTemplate = await fetchView("views/index.html");
+    const view = await loadView(viewTemplate);
+
+    renderView(box, view);
+
+}
+run();

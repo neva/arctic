@@ -6,7 +6,7 @@ const webRoutes = require("./Web/routes.js");
 const apiRoutes = require("./Api/routes.js");
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 // enable JSON parsing
 app.use(bodyParser.json());

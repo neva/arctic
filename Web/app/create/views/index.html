@@ -31,10 +31,9 @@
         const response = await createApp(appName, window.user.userAccessToken);
         
         if(response.error != false) {
-            window.popup.renderError(response.error.message, "#" + response.error.code)
+            props.popup.renderError(response.error.message, "#" + response.error.code)
         }
-        window.popup.renderSuccess(response.message);
-        console.log(response);
+        props.popup.renderSuccess(response.message);
         setTimeout(() => {
             window.location.href = serverAddress + "/app/dashboard?app=" + response.id;
         }, 1000)

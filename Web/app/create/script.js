@@ -21,7 +21,7 @@ const run = async () => {
     const viewTemplate = await fetchView("views/index.html");
     const view = await loadView(viewTemplate);
 
-    renderView(box, view, { popup });
+    renderView(box, view);
 
 }
 run();

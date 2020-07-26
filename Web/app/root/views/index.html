@@ -1,0 +1,36 @@
+<view>
+
+    <div class="box">
+        <intro></intro>
+    </div>
+
+</view>
+<style>
+
+    .view .box {
+        width: 530px;
+        height: 142px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .view .box .INTRO {
+        margin-left: 40px;
+    }
+
+</style>
+<script>
+
+    const app = queryParameter("app");
+    const response = await getAppInfo(app);
+
+    if(response.error != false) {
+        window.popup.renderError(response.error.message, "#" + response.error.code);   
+    }
+
+    await use("/components/intro.html", this, { title: response.appName, description: "#" + response.appID });
+
+</script>

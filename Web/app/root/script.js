@@ -1,15 +1,14 @@
-const appName = document.getElementById("appName");
-const appIDText = document.getElementById("app-id"); 
-
 const run = async () => {
 
-    const appID = queryParameter("id");
+    await use("/components/popup.html", this);
+    const popup = document.querySelector(".POPUP");
+    window.popup = popup;
 
-    const info = await getAppInfo(appID);
-    console.log(info);
+    const box = document.getElementById("content");
+    const viewTemplate = await fetchView("views/index.html");
+    const view = await loadView(viewTemplate);
 
-    appName.innerHTML = info.appName;
-    appIDText.innerHTML = info.appID;
+    renderView(box, view);
 
 }
 run();

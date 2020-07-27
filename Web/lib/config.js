@@ -1,1 +1,1 @@
-const serverAddress = "http://46.101.113.205:80"
+const serverAddress = "http://arcticxyz.ddns.net/"

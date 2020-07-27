@@ -78,7 +78,6 @@ const getUserAccessToken = () => {
 }
 var redirect = (url) => window.location.href = url;
 
-
 // arctic specific functions
 const requestToken = async (email, password) => {
 

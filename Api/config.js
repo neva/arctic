@@ -1,3 +1,3 @@
 module.exports = {
-    serverAddress: "http://arcticxyz.ddns.net/"
+    serverAddress: "http://arcticxyz.ddns.net"
 }

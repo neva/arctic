@@ -1,6 +1,6 @@
 <view>
 
-    <intro title="Dashboard" description="‏‏..."></intro>
+    <intro title="..." description="‏‏..."></intro>
     <div class="tile-container">
         <tile title="Preferences" description="Change Name, Icon, etc." link="views/preferences.html"></tile>
         <tile title="Token" description="List all tokens" link="views/token.html"></tile>
@@ -25,7 +25,8 @@
 </style>
 <script>
 
-    document.querySelector("intro").setAttribute("description", window.app.appName)
+    document.querySelector("intro").setAttribute("title", window.app.appName)
+    document.querySelector("intro").setAttribute("description", window.app.appID)
 
     await use("../../components/intro.html", this);
     await use("../../components/tile.html", this);

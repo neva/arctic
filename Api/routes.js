@@ -387,7 +387,6 @@ router.post("/app/user/", async (req, res) => {
     // check if user and app exist
     const app = await getApp({ token: appToken });
     if (app == undefined) { res.json(errorMessage.appNotFound); return; }
-    console.log(app.id, userAuthToken);
     const user = await getUser({ apps: [app.id, userAuthToken] });
     if (user == undefined) { res.json(errorMessage.userNotFound); return; }
 
@@ -398,7 +397,8 @@ router.post("/app/user/", async (req, res) => {
     // send response
     const data = {
         email: user.email,
-        name: user.name
+        name: user.name,
+        id: user.id
     }
     res.json({
         "error": false,

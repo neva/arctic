@@ -7,7 +7,7 @@ Arctic is a new authentification service that allows for an easy-to-use and secu
 If you catch any errors feel free to write a mail `paul.hanneforth.o@gmail.com` or create an issue on GitHub.
 
 ## Setting up authentification
-`Arctic` can be easily dropped into any express app. It only takes a few minutes to implement.
+Arctic can be easily dropped into any express app. It only takes a few minutes to implement.
 First you need to install `arctic-node`.
 ```sh
 npm install arctic-node

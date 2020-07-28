@@ -7,6 +7,9 @@ Arctic is a new authentification service that allows for an easy-to-use and secu
 If you catch any errors feel free to write a mail `paul.hanneforth.o@gmail.com` or create an issue on GitHub.
 
 ## Setting up authentification
+### Creating an App
+To add arctic authentification to your Website or App, you need to first create an app. You can do that on http://arcticxyz.ddns.net/app/create/
+### Adding the App to Express
 Arctic can be easily dropped into any express app. It only takes a few minutes to implement.
 First you need to install `arctic-node`.
 ```sh

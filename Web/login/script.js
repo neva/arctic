@@ -4,7 +4,7 @@ const run = async () => {
     const popup = document.querySelector(".POPUP");
     window.popup = popup;
 
-    const box = document.getElementById("box");
+    const box = document.getElementById("content");
     const viewTemplate = await fetchView("views/login.html");
     const view = await loadView(viewTemplate);
 

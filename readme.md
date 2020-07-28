@@ -10,6 +10,7 @@ If you catch any errors feel free to write a mail `paul.hanneforth.o@gmail.com` 
 ### Creating an App
 To add arctic authentification to your Website or App, you need to first create an app. You can do that on http://arcticxyz.ddns.net/app/create/.
 After that you'll be redirected to your App's Dashboard. Make note of the App ID, which is displayed right under the Name of your App, starting with a `#` (for example: `#w7udj9k0mu`) and copy one of the Tokens displayed in the `Token` tab.
+Now you're finished and can proceed with the next step.
 ### Adding the App to Express
 Arctic can be easily dropped into any express app. It only takes a few minutes to implement.
 First you need to install `arctic-node`.

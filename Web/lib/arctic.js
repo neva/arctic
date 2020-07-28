@@ -48,7 +48,7 @@ const setUserList = (userList) => {
 const addUser = (id, userAccessToken) => {
 
     const userList = getUserList();
-    const filteredList = userList.filter((user) => (user.id !== userID))
+    const filteredList = userList.filter((user) => (user.id !== id))
     const updatedList = [{ id, userAccessToken }].concat(filteredList);
 
     setUserList(updatedList);

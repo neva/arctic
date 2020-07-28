@@ -6,7 +6,7 @@
             <div class="description">description</div>
         </div>
         <div class="icon">
-            <img src="images/play.svg">
+            <img src="/images/play.svg">
         </div>
     </div>
 
@@ -75,5 +75,8 @@
             window.location.href = props.href;
         }
     })
+
+    const addClickEvent = (event) => component.addEventListener("click", () => event())
+    return { addClickEvent }
 
 </script>

@@ -22,7 +22,7 @@
     await use("/components/tile.html", this);
 
     const tile = component.querySelector(".TILE");
-    tile.querySelector(".tile .icon img").src = "images/trash.svg"
+    tile.querySelector(".tile .icon img").src = "/images/trash.svg"
     tile.querySelector(".icon").addEventListener("click", async () => {
         const result = await removeMember(window.app.appID, props.user, window.userAccessToken);
         console.log(result);

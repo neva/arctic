@@ -21,7 +21,7 @@
     await use("/components/tile.html", this);
 
     const tile = component.querySelector(".TILE");
-    tile.querySelector(".tile .icon img").src = "images/trash.svg"
+    tile.querySelector(".tile .icon img").src = "/images/trash.svg"
     tile.querySelector(".icon").addEventListener("click", async () => {
         const result = await disableToken(window.app, props.token);
         if(result.error != false) {

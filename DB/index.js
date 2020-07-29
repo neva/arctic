@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ip = "localhost";
+const ip = "db";
 const port = 30000;
 const database = "arctic";
 

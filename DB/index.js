@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ip = "db";
-const port = 30000;
+const port = 27017;
 const database = "arctic";
 console.log("Test", ip, port);
 

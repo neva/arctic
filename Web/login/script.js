@@ -11,5 +11,4 @@ const run = async () => {
     renderView(box, view);
 
 }
-
 run();

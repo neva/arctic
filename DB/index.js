@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const ip = "db";
 const port = 30000;
 const database = "arctic";
+console.log("Test", ip, port);
 
 const username = process.env.NAME;
 const password = process.env.PASS;

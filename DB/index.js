@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
 
 const ip = "localhost";
-const port = 27017;
+const port = 30000;
 const database = "arctic";
 
 const username = process.env.NAME;
 const password = process.env.PASS;
-
-console.log(ip, port, username, password)
 
 // connect to database
 mongoose.connect("mongodb://" + ip + ":" + port + "/" + database, {

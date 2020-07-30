@@ -7,6 +7,8 @@ const database = "arctic";
 const username = process.env.NAME;
 const password = process.env.PASS;
 
+console.log(ip, port, username, password)
+
 // connect to database
 mongoose.connect("mongodb://" + ip + ":" + port + "/" + database, {
     useNewUrlParser: true, 

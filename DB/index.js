@@ -23,30 +23,34 @@ mongoose.connection.once("open", () => {
     console.log("DB | Started successfully!")
 })
 
-const UserSchema = {
+const Schema = mongoose.Schema
+
+const UserSchema = new Schema({
     id: String,
     apps: Array,
     email: String,
     password: String,
     token: String,
     name: String
-};
+});
 const User = mongoose.model("User", UserSchema);
 
-const AppSchema = {
+const AppSchema = new Schema({
     id: String,
     token: Array,
     member: Array,
     name: String
-};
+});
 const App = mongoose.model("App", AppSchema);
 
-const LinkSchema = {
+const LinkSchema = new Schema({
     verifyURL: String,
     name: String,
     email: String,
-    password: String
-}
+    password: String,
+    createdAt: { type: Date, default: Date.now },
+    expireAt: { type: Date, default: Date.now, index: { expires: '1d' }}
+})
 const Link = mongoose.model("Link", LinkSchema);
 
 module.exports = { User, App, Link }
